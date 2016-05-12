@@ -6,16 +6,21 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    <div>
-      <h2>Add cache</h2>
-      <input type="text" id="cache-name">
-      <button id="add-cache">add</button>
-    </div>
-    <div>
-      <h2>Remove cache</h2>
-      <select multiple id="cache-list"></select>
-      <button id="delete-cache">delete cache</button>
-      <button id="list-cache">list cache</button>
+    <div class="container">
+      <h1>sw-sandbox</h1>
+      <section>
+        <h2>Cache list</h2>
+        <select id="cache-list" class="form-select" multiple></select>
+        <button id="list-cache" class="btn" type="button">list cache</button>
+      </section>
+      <section>
+        <h2>Manage cache</h2>
+        <input id="cache-name" class="form-control" type="text">
+        <button id="add-cache" class="btn" type="button">add cache</button><br>
+        <button id="delete-cache" class="btn" type="button">delete cache</button>
+        <button id="clear-cache" class="btn" type="button">clear cache</button>
+        <button id="purge-cache" class="btn" type="button">purge cache</button>
+      </section>
     </div>
     <script src="app.js"></script>
   </body>

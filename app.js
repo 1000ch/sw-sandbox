@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', _ => {
   const addCache = document.querySelector('#add-cache');
   const deleteCache = document.querySelector('#delete-cache');
   const listCache = document.querySelector('#list-cache');
+  const clearCache = document.querySelector('#clear-cache');
+  const purgeCache = document.querySelector('#purge-cache');
 
   addCache.addEventListener('click', e => {
     let value = cacheName.value;
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', _ => {
   });
 
   deleteCache.addEventListener('click', e => {
-    let value = cacheList.value;
+    let value = cacheList.value.replace(`${location.href}`, '');
 
     if (value.length === 0) {
       return;
@@ -76,7 +78,27 @@ document.addEventListener('DOMContentLoaded', _ => {
     });
   });
 
-  listCache.click();
+  clearCache.addEventListener('click', e => {
+    sendMessage({
+      command : 'clear'
+    })
+    .then(data => {
+      while (cacheList.firstChild) {
+        cacheList.removeChild(cacheList.firstChild);
+      }
+    });
+  });
+
+  purgeCache.addEventListener('click', e => {
+    sendMessage({
+      command : 'purge'
+    })
+    .then(() => {
+      while (cacheList.firstChild) {
+        cacheList.removeChild(cacheList.firstChild);
+      }
+    });
+  });
 });
 
 if (navigator.serviceWorker) {
