@@ -26,6 +26,14 @@ self.addEventListener('message', e => {
                 error : succeed ? null : `${url} is not found in the cache for ${cacheKey}`
               });
             });
+        case 'list':
+          return cache.keys()
+            .then(response => {
+              e.ports[0].postMessage({
+                urls  : response.map(request => request.url),
+                error : null
+              });
+            });
         default:
           return Promise.resolve()
             .then(_ => {
@@ -55,7 +63,7 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(_ => self.clients.claim());
+  e.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', e => {
