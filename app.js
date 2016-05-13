@@ -15,7 +15,7 @@ function sendMessage(message) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', _ => {
+document.addEventListener('DOMContentLoaded', e => {
   const cacheList = document.querySelector('#cache-list');
   const cacheName = document.querySelector('#cache-name');
   const addCache = document.querySelector('#add-cache');
@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', _ => {
   const listCache = document.querySelector('#list-cache');
   const clearCache = document.querySelector('#clear-cache');
   const purgeCache = document.querySelector('#purge-cache');
+
+  document.addEventListener('sw-ready', e => {
+    listCache.click();
+  });
 
   addCache.addEventListener('click', e => {
     let value = cacheName.value;
@@ -126,6 +130,7 @@ if (navigator.serviceWorker) {
     });
   })
   .then(controller => {
-    console.log('Service Worker is ready');
+    let event = new Event('sw-ready');
+    document.dispatchEvent(event);
   });
 }
